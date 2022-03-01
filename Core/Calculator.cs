@@ -12,11 +12,16 @@ namespace WinCalculator.Core
     {
         public static double Evaluate(string expression)
         {
-            string mod_expression = CalcMultiplicationsAndDivisions(expression);
-            return CalcAllSums(mod_expression);
+            string updated_expression = CalculateAndParseMultiplicationsAndDivisions(expression);
+            return CalculatePlusMinus(updated_expression);
         }
 
-        private static double CalcAllSums(string expression)
+        /// <summary>
+        /// Sums up all the plus/minus operations after we delt with the multiplications/divisions.
+        /// </summary>
+        /// <param name="expression">string math operation with plus/minus only, Example: "5+4+8-4-10+20"</param>
+        /// <returns>Final result as a double</returns>
+        private static double CalculatePlusMinus(string expression)
         {
             double finalResult = 0;
             //
@@ -30,21 +35,25 @@ namespace WinCalculator.Core
                 {
                     switch (gc[1].Value)
                     {
-                        case "+":
-                            finalResult += Convert.ToDouble(gc[2].Value);
-                            break;
                         case "-":
                             finalResult -= Convert.ToDouble(gc[2].Value);
                             break;
-                        default:
-                            throw new ApplicationException("Invalid operation");
+                        default: // if its not a "-" its a "+".
+                            finalResult += Convert.ToDouble(gc[2].Value);
+                            break;
                     }
                 }
             }
             return finalResult;
         }
 
-        private static string CalcMultiplicationsAndDivisions(string expression)
+        /// <summary>
+        /// Takes a string math expression and inserts the multiplications/division results back to the string.
+        /// For example "5+6+2*4*5-10+25" becomes "5+6+40-10+25"
+        /// </summary>
+        /// <param name="expression">string math operation with plus/minus/multiplication/division</param>
+        /// <returns>Calculated string math expression with only plus/minus operations</returns>
+        private static string CalculateAndParseMultiplicationsAndDivisions(string expression)
         {
             double multiplicationDivideCombo = 1;
             int[] tempReplaceIndexes = { 0, 0 }; // start, end
@@ -119,10 +128,6 @@ namespace WinCalculator.Core
             foreach (double[] data in ReplaceExpresions.Reverse())
             {
                 expression = expression.Remove((int)data[1], (int)data[2] - (int)data[1] + 1).Insert((int)data[1], data[0].ToString());
-            }
-            if (expression[0] != '-')
-            {
-                expression = expression.Insert(0, "+");
             }
             return expression;
         }
