@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WinCalculator.Core;
 
-namespace WinCalculator
+namespace WinCalculator.Forms
 {
-    public partial class Form1 : Form
+    public partial class CalcForm : Form
     {
         private string _mathOperation;
         public string MathOperation
@@ -24,7 +25,7 @@ namespace WinCalculator
             }
         }
 
-        public Form1()
+        public CalcForm()
         {
             InitializeComponent();
         }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
 
-namespace WinCalculator
+namespace WinCalculator.Core
 {
     public static class Calculator
     {

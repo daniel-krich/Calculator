@@ -1,7 +1,7 @@
 ﻿
-namespace WinCalculator
+namespace WinCalculator.Forms
 {
-    partial class Form1
+    partial class CalcForm
     {
         /// <summary>
         ///  Required designer variable.
