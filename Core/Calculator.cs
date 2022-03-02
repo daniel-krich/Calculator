@@ -35,12 +35,15 @@ namespace WinCalculator.Core
                 {
                     switch (gc[1].Value)
                     {
+                        case "":
+                        case "+":
+                            finalResult += Convert.ToDouble(gc[2].Value);
+                            break;
                         case "-":
                             finalResult -= Convert.ToDouble(gc[2].Value);
                             break;
-                        default: // if its not a "-" its a "+".
-                            finalResult += Convert.ToDouble(gc[2].Value);
-                            break;
+                        default:
+                            throw new ApplicationException("Invalid operation");
                     }
                 }
             }
